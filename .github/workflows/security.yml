@@ -1,0 +1,26 @@
+name: security
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag adioss/gitlab-watchman:latest
+
+      - name: Scan image with Anchore
+        uses: anchore/scan-action@v1
+        with:
+          image-reference: "adioss/gitlab-watchman:latest"
+          dockerfile-path: "Dockerfile"
+          fail-build: true
+          acs-report-enable: true
+      - name: anchore inline scan JSON results
+        run: for j in `ls ./anchore-reports/*.json`; do echo "---- ${j} ----"; cat ${j}; echo; done
+      - name: anchore action SARIF report
+        run: cat results.sarif
+
+      - name: Detect Secrets
+        uses: evanextreme/detect-secrets-action@1.0.0
