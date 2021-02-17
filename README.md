@@ -27,8 +27,8 @@ You need a personal access token
 docker run --rm adioss/gitlab-watchman -h
 
 // scan all
-docker run --rm -e GITLAB_WATCHMAN_TOKEN=abc123 -e GITLAB_WATCHMAN_URL=https://gitlab.example.com adioss/gitlab-watchman --timeframe a --all
-docker run --rm --env-file .env adioss/gitlab-watchman --timeframe a --all
+docker run --rm -e GITLAB_WATCHMAN_TOKEN=abc123 -e GITLAB_WATCHMAN_URL=https://gitlab.example.com adioss/gitlab-watchman --timeframe a --all --output stdout
+docker run --rm --env-file .env adioss/gitlab-watchman --timeframe a --all --output stdout
 
 // output into a file
 docker run --rm -v $PWD/log:/home/gitlab-watchman/log -e GITLAB_WATCHMAN_TOKEN=abc123 -e GITLAB_WATCHMAN_URL=https://gitlab.example.com -e GITLAB_WATCHMAN_LOG_PATH=/home/gitlab-watchman/log adioss/gitlab-watchman --timeframe a --all --output file 
