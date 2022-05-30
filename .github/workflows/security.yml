@@ -21,6 +21,3 @@ jobs:
         run: for j in `ls ./anchore-reports/*.json`; do echo "---- ${j} ----"; cat ${j}; echo; done
       - name: anchore action SARIF report
         run: cat results.sarif
-
-      - name: Detect Secrets
-        uses: evanextreme/detect-secrets-action@1.0.0
