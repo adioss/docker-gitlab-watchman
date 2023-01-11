@@ -10,11 +10,10 @@ COPY --from=initlayer /workdir/gitlab-watchman /home/gitlab-watchman
 RUN chown -R gitlab-watchman: /home/gitlab-watchman
 WORKDIR /home/gitlab-watchman
 
-RUN python -m pip install --upgrade pip
-RUN pip install setuptools wheel twine requests colorama termcolor PyYAML
-RUN python setup.py sdist bdist_wheel
-RUN mv dist/gitlab-watchman-*.tar.gz dist/gitlab-watchman.tar.gz
-RUN pip install dist/gitlab-watchman.tar.gz
+RUN python3 -m pip install --upgrade pip
+RUN python3 -m pip install requests build PyYAML
+RUN python3 -m build
+RUN python3 -m pip install dist/*.whl
 
 USER gitlab-watchman
 
