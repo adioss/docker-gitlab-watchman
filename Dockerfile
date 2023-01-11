@@ -1,8 +1,6 @@
 FROM alpine/git AS initlayer
 WORKDIR /workdir
-# TODO: replace that, waiting for https://github.com/PaperMtn/gitlab-watchman/pull/6 to be merged
-#RUN git clone https://github.com/PaperMtn/gitlab-watchman.git
-RUN git clone https://github.com/adioss/gitlab-watchman.git
+RUN git clone https://github.com/PaperMtn/gitlab-watchman.git
 
 FROM python:buster
 RUN addgroup --gid 1000 gitlab-watchman
